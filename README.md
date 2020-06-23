@@ -135,5 +135,72 @@ Configure following
 
 ```<Enstance_ip>:8080```
 
+**JOB SCHEDULING**
+
+Cron is a scheduling daemon that executes tasks at specified intervals. These tasks are called cron jobs and are mostly used to automate system maintenance or administration.
+
+For example, you could set a cron job to automate repetitive tasks such as backing up databases or data, updating the system with the latest security patches, checking the disk space usage, sending emails, and so on.
+
+The cron jobs can be scheduled to run by a minute, hour, day of the month, month, day of the week, or any combination of these
+```
+* * * * * command(s)
+- - - - -
+| | | | |
+| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+| | | ------- Month (1 - 12)
+| | --------- Day of month (1 - 31)
+| ----------- Hour (0 - 23)
+------------- Minute (0 - 59)
+```
+Go to your Project directory where all producer,Consumer and app.py located and create jobProducer.sh and jobApp.sh to run scripts(can give job name diffrent also):
+
+1.Create jobProducer.sh
+
+```nano jobProducer.sh```
+
+set Producer.py file path in it
+
+```python3 Producer.py```
+
+2.Create jobApp.sh
+
+```nano jobApp.sh```
+
+set app.py in it
+
+```gunicorn3 --threads=4 app:app```
+
+Go to Project directory:
+
+```cd Project```
+
+Display crontab file contents.
+
+```crontab -l```
+
+ Edit crontab file
  
+```crontab -e``` 
+
+The crontab command opens the crontab,configure file and schedule a task to run on time periods,consider jobs run at every day at 5.30
+
+```30 5 * * * cd (path of jobProducer.sh file)```
+
+```30 5 * * * cd (path of jobApp.sh file)```
+
+**Run .sh files and Schedule the jobs**
+
+```cd Project```
+
+```sh jobProducer.sh```
+
+```sh jobApp.sh```
+
+**Check output in browser**
+
+```<Enstance_id>:8080```
+
+
+
+
 
